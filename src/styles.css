@@ -20,6 +20,7 @@ body {
 /* Header Styles */
 .header {
   margin-top: 50px;
+  /* background-color: red; */
 }
 
 .search-input {
@@ -163,6 +164,7 @@ body {
 .app-subtitle {
   text-align: center;
   margin: 25px auto;
+  /* padding-bottom: 10px; */
   font-weight: 300;
 }
 
