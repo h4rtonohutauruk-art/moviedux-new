@@ -1,20 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import './styles.css'
-import Header from './components/header';
-import Footer from './components/Footer';
+import "./App.css";
+import "./styles.css";
+import Header from "./components/header";
+import Footer from "./components/Footer";
+import MovieGrid from "./components/MoviesGrid";
 
 function App() {
   return (
     <div className="App">
-      <div className='container'>
-          <Header></Header>
+      <div className="container">
+        <Header></Header>
+        <MovieGrid></MovieGrid>
       </div>
-      {/* <footer className="footer">
-            <p className='footer'>Footer content here</p>
-      </footer> */}
       <Footer></Footer>
-      
     </div>
   );
 }
