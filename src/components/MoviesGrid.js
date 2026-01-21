@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import "../styles.css";
 import MovieCard from "./MovieCard";
 
-export default function MovieGrid() {
-  const [movies, setMovies] = useState([]);
+export default function MovieGrid({ movies, watchlist, toggleWatchlist }) {
+  // const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const [genre, setGenre] = useState("All Genres");
   const [rating, setRating] = useState("All");
 
-  useEffect(() => {
-    fetch("movies.json")
-      .then((response) => response.json())
-      .then((data) => setMovies(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("movies.json")
+  //     .then((response) => response.json())
+  //     .then((data) => setMovies(data));
+  // }, []);
 
   const handleSearchChanges = (e) => {
     setSearchTerm(e.target.value);
@@ -35,14 +35,26 @@ export default function MovieGrid() {
   };
 
   const matchesRating = (movie, rating) => {
-    return (
-      rating === "All" ||
-      (rating === "Good"
-        ? movie.rating >= 8
-        : rating === "Bad"
-        ? movie.rating < 5
-        : movie.rating > 5 && movie.rating < 8)
-    );
+    // return (
+    //   rating === "All" ||
+    //   (rating === "Good"
+    //     ? movie.rating >= 8
+    //     : rating === "Bad"
+    //       ? movie.rating < 5
+    //       : movie.rating > 5 && movie.rating < 8)
+    // );
+    switch (rating) {
+      case "All":
+        return true;
+      case "Good":
+        return movie.rating >= 8;
+      case "Ok":
+        return movie.rating > 5 && movie.rating < 8;
+      case "Bad":
+        return movie.rating < 5;
+      default:
+        return false;
+    }
   };
 
   const matchesSearchTerm = (movie, searchTerm) => {
@@ -52,7 +64,7 @@ export default function MovieGrid() {
   const filterMovie = movies.filter(
     // (movie) => movie.title.toLowerCase().includes(searchTerm.toLowerCase())
     (movie) =>
-      //   matchesGenre(movie, genre) && matchesSearchTerm(movie, searchTerm)
+      // matchesGenre(movie, genre) && matchesSearchTerm(movie, searchTerm)
       matchesGenre(movie, genre) &&
       matchesRating(movie, rating) &&
       matchesSearchTerm(movie, searchTerm)
@@ -99,8 +111,14 @@ export default function MovieGrid() {
       </div>
 
       <div className="movies-grid">
+        {/* <h1>{movies.length}</h1> */}
         {filterMovie.map((movie) => (
-          <MovieCard movie={movie} key={movie.id}></MovieCard>
+          <MovieCard
+            movie={movie}
+            key={movie.id}
+            toggleWatchlist={toggleWatchlist}
+            isWatchlisted={watchlist.includes(movie.id)}
+          ></MovieCard>
         ))}
       </div>
     </div>
